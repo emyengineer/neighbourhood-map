@@ -9,9 +9,10 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: 40px;
+  margin-bottom: 3px;
   color: white;
+  width:100%;
 }
 
 .App-title {
@@ -22,6 +23,46 @@
   font-size: large;
 }
 
+#main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+#map-container {
+  width: 70%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+
+}
+#places-list {
+  width: 30%;
+}
+
+#locations-list {
+  display: block;
+  box-sizing: border-box;
+  height: 450px;
+  color: blue;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  overflow: scroll;
+  background-color: #B0C4DE;
+}
+#search-filter-text {
+  width :300px;
+  height: 30px;
+}
+#search-btn {
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #02b3e4;
+  color: white;
+  font-size: 20px;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Map from './components/Map.js';
+import SearchPlaces from './components/SearchPlaces.js';
+import * as MapsDataAPI from './MapsDataAPI.js';
 
 class App extends Component {
+  state ={
+    locations: []
+  }
+
+
+  componentDidMount() {
+    MapsDataAPI.getLocationsAll().then((locations) => {
+      console.log(locations);
+      this.setState({locations})
+    })
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="main">
+      <header className="App-header">
+          
+      </header>
+      <div id="main-container">   
+         <div id="places-list">
+          <SearchPlaces locations= {this.state.locations}/>
+        </div>
+        <div id="map-container">
+          <Map locations={this.state.locations} isMarkerShown={true}/>
+        </div>      
       </div>
+      </div>
+      
     );
   }
 }

@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "escape-string-regexp": "^1.0.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-google-maps": "^9.4.5",
+    "react-scripts": "1.1.4",
+    "react-throttle": "^0.3.0",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
