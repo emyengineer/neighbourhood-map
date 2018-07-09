@@ -30,6 +30,22 @@ class App extends Component {
     }
   }
 
+  handleLocationSelected = (event, location) => {
+    if(event.key === 'Enter'){
+      console.log('[app.js] Enter Key Pressed')
+      console.log(location)
+    }
+  }
+  handleLocationItemClick = (event, location) => {
+    let origColor = event.currentTarget.style.backgroundColor
+    if(origColor !== '#ccc') {
+      console.log(event.currentTarget)
+        event.currentTarget.style.backgroundColor = '#ccc'
+      } else {
+        event.currentTarget.style.backgroundColor = origColor
+      }
+  }
+
   render() {
     return (
       <div className="main">
@@ -38,7 +54,11 @@ class App extends Component {
       </header>
       <div id="main-container">   
          <div id="places-list">
-          <SearchPlaces locations= {this.state.locations} onUserDidSearch= {this.updateLocations}/>
+          <SearchPlaces locations= {this.state.locations} 
+            onUserDidSearch= {this.updateLocations}
+            onhandleLocationSelected = {this.handleLocationSelected}
+            onItemClick = {this.handleLocationItemClick}
+          />
         </div>
         <div id="map-container">
           <Map locations={this.state.locations}  />

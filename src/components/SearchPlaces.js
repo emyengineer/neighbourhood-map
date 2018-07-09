@@ -1,14 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 import escapeRegExp from 'escape-string-regexp'
 import { Debounce } from 'react-throttle'
-import * as MapsDataAPI from '../MapsDataAPI.js';
+import * as MapsDataAPI from '../MapsDataAPI.js'
+import Location from './Location.js'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 class SearchPlaces extends Component {
 	static propTypes = {
 		locations: PropTypes.array.isRequired,
-		onUserDidSearch: PropTypes.func.isRequired
+		onUserDidSearch: PropTypes.func.isRequired,
+		onhandleLocationSelected: PropTypes.func.isRequired
 	}
 
 	state = {
@@ -27,6 +30,7 @@ class SearchPlaces extends Component {
 			query: ''
 		})
 	}
+
 
 	searchLocations = (query) => {
 		let filteredLocations
@@ -60,11 +64,19 @@ class SearchPlaces extends Component {
 
 
 	render() {
-		let { locations, onUserDidSearch } = this.props
+		let { locations, onUserDidSearch , onhandleLocationSelected, onItemClick} = this.props
 		let{ query, locationsSearchResult } = this.state
 		let result = this.searchLocations(query)
 		let locationsHasItems = result.locationsHasItems
 		let filteredLocations = result.filteredLocations
+
+		let handleKeyPress = (event, location) => {
+				onhandleLocationSelected(event, location)
+			}
+		let onItemClickHandler = (event, location) => {
+			onItemClick(event, location)
+		}
+
 		return  (
 			<div>
 				<Debounce time="1000" handler="onChange">
@@ -75,9 +87,14 @@ class SearchPlaces extends Component {
 				<input  id="search-btn"    type="button" value="Search"/>
 				<hr/>
 				{ (locationsHasItems) && (
-					<ol id="locations-list">
-						{filteredLocations.map((item, index) => (<li key={index}> {item.name} </li>))}
-					</ol>
+					<ul id="locations-list">
+						{filteredLocations.map((item, index) => 
+							(<Location key= {index} location= {item} 
+								onClick= {onItemClickHandler}
+								onKeyPress = {handleKeyPress}>
+							</Location>)
+						)}
+					</ul>
 					)				
 				}								
 			</div>

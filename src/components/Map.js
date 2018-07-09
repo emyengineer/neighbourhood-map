@@ -8,6 +8,28 @@ class Map extends Component {
 		locations: PropTypes.array.isRequired
 	}
 
+
+
+	componentDidMount() {
+		console.log('component Did mount')
+	  this.setState({
+            zoomToMarkers: map => {
+            	if(this.context.hasMap()) {
+                console.log("Zoom to markers");
+                const bounds = new window.google.maps.LatLngBounds();
+                map.props.children.forEach((child) => {
+                	console.log('iterating over map children')
+                    if (child.type === Marker) {
+                    	console.log('extending bounds for ', child.props.position.lat, child.props.position.lng)
+                        bounds.extend(new window.google.maps.LatLng(child.props.position.lat, child.props.position.lng));
+                    }
+                })
+                map.fitBounds(bounds);
+            }
+        }
+        })
+	}
+
 	render() {
 		let {locations} = this.props
 		//let { } TO DO Read values from this.State
@@ -25,10 +47,12 @@ class Map extends Component {
 			})
 			console.log('Markers')
 			console.log(markers)
+
 		}
 
 		const GoogleMapExample = withGoogleMap(props => (
 			<GoogleMap 
+				ref = {props.zoomToMarkers}
 				defaultCenter = {{ lat: 27.9158175, lng: 34.3299505 }}
 				defaultZoom = {15}
 			>
@@ -39,9 +63,6 @@ class Map extends Component {
 				}
 			</GoogleMap>
 			));
-
-
-
 		return (
 			<div>
 				<GoogleMapExample
