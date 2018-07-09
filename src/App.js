@@ -6,8 +6,9 @@ import SearchPlaces from './components/SearchPlaces.js';
 import * as MapsDataAPI from './MapsDataAPI.js';
 
 class App extends Component {
-  state ={
-    locations: []
+  state = {
+    locations: [],
+    originalLocations: []
   }
 
 
@@ -15,8 +16,20 @@ class App extends Component {
     MapsDataAPI.getLocationsAll().then((locations) => {
       console.log(locations);
       this.setState({locations})
+      this.setState({originalLocations: locations})
     })
   }
+
+  updateLocations = (searchResultArr, query) => {
+    if(query) {
+      this.setState((state) => ({
+        locations: searchResultArr
+      }))
+    }else {
+      this.setState({locations: this.state.originalLocations})
+    }
+  }
+
   render() {
     return (
       <div className="main">
@@ -25,10 +38,10 @@ class App extends Component {
       </header>
       <div id="main-container">   
          <div id="places-list">
-          <SearchPlaces locations= {this.state.locations}/>
+          <SearchPlaces locations= {this.state.locations} onUserDidSearch= {this.updateLocations}/>
         </div>
         <div id="map-container">
-          <Map locations={this.state.locations} isMarkerShown={true}/>
+          <Map locations={this.state.locations}  />
         </div>      
       </div>
       </div>

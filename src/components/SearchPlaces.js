@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 import escapeRegExp from 'escape-string-regexp'
 import { Debounce } from 'react-throttle'
+import * as MapsDataAPI from '../MapsDataAPI.js';
 
 class SearchPlaces extends Component {
 	static propTypes = {
-		locations: PropTypes.array.isRequired
+		locations: PropTypes.array.isRequired,
+		onUserDidSearch: PropTypes.func.isRequired
 	}
 
 	state = {
@@ -30,55 +32,39 @@ class SearchPlaces extends Component {
 		let filteredLocations
 		let locations = this.props.locations
 		let locationsHasItems = false 
-		if(locations !== undefined && locations !== null && locations.length > 0) {
-			locationsHasItems = true
-		}
-		if(query) {
-		const match = new RegExp(escapeRegExp(query.trim()), 'i')
-		if(locationsHasItems) {
-			filteredLocations = locations.filter((location) => match.test((location.name)) )
-		}
-
-	} else {
-		filteredLocations = locations
-	}
-		this.setState({locationsSearchResult: filteredLocations})
-	}
-	handleTextChange = (query, event) => {
-		console.log('query is'+ query)
-		this.updateQuery(query)
-		this.searchLocations(query)
-	}
-
-
-
-	render() {
-		let { locations } = this.props
-		let{ query, locationsSearchResult } = this.state
-		let locationsHasItems = false 
-
-		
-
+		let result ={}
 		if(locations !== undefined && locations !== null && locations.length > 0) {
 			locationsHasItems = true
 			locations.sort(sortBy('name'))
 		}
-		
-		let filteredLocations
-	if(query) {
-		if(locationsSearchResult !== undefined && locations !== null && locations.length > 0) {
-			console.log('locationsSearchResult '+ locationsSearchResult.length)
-			locations = locationsSearchResult
-		}
+		if (query) {
 		const match = new RegExp(escapeRegExp(query.trim()), 'i')
-		if(locationsHasItems) {
-			filteredLocations = locations.filter((location) => (location.name))
-		}
+		if (locationsHasItems) {
+				filteredLocations = locations.filter((location) => match.test((location.name)))
+		}	
+		} else {
+				filteredLocations = locations
+		}	
 
-	} else {
-		filteredLocations = locations
+		result = {locationsHasItems: locationsHasItems	, filteredLocations: filteredLocations}
+		return result
 	}
 
+	handleTextChange = (query, event) => {
+		console.log('query is'+ query)
+		this.updateQuery(query)
+		let result = this.searchLocations(query)
+		this.props.onUserDidSearch(result.filteredLocations, query)
+		this.setState({locationsSearchResult: result.filteredLocations})
+	}
+
+
+	render() {
+		let { locations, onUserDidSearch } = this.props
+		let{ query, locationsSearchResult } = this.state
+		let result = this.searchLocations(query)
+		let locationsHasItems = result.locationsHasItems
+		let filteredLocations = result.filteredLocations
 		return  (
 			<div>
 				<Debounce time="1000" handler="onChange">
@@ -92,10 +78,8 @@ class SearchPlaces extends Component {
 					<ol id="locations-list">
 						{filteredLocations.map((item, index) => (<li key={index}> {item.name} </li>))}
 					</ol>
-					)
-					
-				}	
-							
+					)				
+				}								
 			</div>
 			)
 	}

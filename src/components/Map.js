@@ -23,6 +23,7 @@ class Map extends Component {
 						}
 				markers.push(marker) 
 			})
+			console.log('Markers')
 			console.log(markers)
 		}
 
