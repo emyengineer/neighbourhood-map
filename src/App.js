@@ -9,13 +9,14 @@ class App extends Component {
   state = {
     locations: [],
     originalLocations: [],
-    selectedLocation: {}
+    selectedLocation:{},
+    newCenter: {lat: 27.915817, lng: 34.3299505}
   }
 
 
   componentDidMount() {
     MapsDataAPI.getLocationsAll().then((locations) => {
-      console.log('Locations Array',locations);
+      // console.log('Locations Array',locations);
       this.setState({locations})
       this.setState({originalLocations: locations})
     })
@@ -33,27 +34,34 @@ class App extends Component {
 
   handleLocationSelected = (event, location) => {
     if(event.key === 'Enter'){
-      console.log('[app.js] Enter Key Pressed')
-      console.log(location)
-      this.setState({
-        selectedLocation: location
-      })
+      console.log('[app.js] Enter Key Pressed ', location)
+      
+      // this.setState({
+      //   selectedLocation: location
+      // })
+      this.setNewCenter(location)
     }
   }
-  handleLocationItemClick = (event, location) => {
-    let origColor = event.currentTarget.style.backgroundColor
-    if(origColor !== '#ccc') {
-      console.log(event.currentTarget)
-        event.currentTarget.style.backgroundColor = '#ccc'
-      } else {
-        event.currentTarget.style.backgroundColor = origColor
-      }
-      console.log('App.js selectedLocation ', location)
-      this.setState({
-        selectedLocation: location 
-      })
+  setNewCenter = (location) => {
+    let newCenter = { lat: 27.9158175, lng: 34.3299505 }
+    if(location !== undefined && location.location !== undefined) {
+         newCenter = {lat: location.location.lat, lng: location.location.lng}            
+    }
+   this.setState({
+      newCenter: newCenter
+   })
   }
+  handleLocationItemClick = (event, location) => {
+      console.log('App.js selectedLocation ', location)
+      this.setNewCenter(location)
 
+  }
+  handleMarkerClicked = (event, latlng) => {
+    console.log('latlang ', latlng)
+    this.setState({
+      newCenter : latlng
+    })
+  }
   render() {
     return (
       <div className="main">
@@ -70,7 +78,8 @@ class App extends Component {
         </div>
         <div id="map-container">
           <Map  locations= {this.state.locations} 
-                selectedLocation = {this.state.selectedLocation}
+                newCenter = {this.state.newCenter}
+                onMarkerClick = {this.handleMarkerClicked}
            />
         </div>      
       </div>

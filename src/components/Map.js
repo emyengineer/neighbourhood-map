@@ -29,13 +29,13 @@ const GoogleMapExample = compose(
               },
               onCenterChanged : ({onCenterChange}) => () => {
                 onCenterChange(refs.map.getCenter())
-                alert('Center Changed')
+                //alert('Center Changed')
               } 
             }
   }),
     lifecycle({
         componentDidMount() {
-          console.log('props Markers', this.props.markers)
+          //console.log('props Markers', this.props.markers)
         },
     }),
     withStateHandlers(() => ({
@@ -50,10 +50,11 @@ const GoogleMapExample = compose(
     showInfo: ({showInfo, isOpen}) => (a) => ({
     	isOpen: !isOpen,
     	showInfoIndex: a
-   	 }),
-    changeCenter:({center}) => (newCenter) => ({
-        center: newCenter
-     }),
+   	 })
+    ,
+    // changeCenter:({center}) => (newCenter) => ({
+    //     center: newCenter
+    //  }),
     resetCenter: ({center}) => (defaultCenter) => ({
         center: defaultCenter
      })
@@ -63,9 +64,9 @@ const GoogleMapExample = compose(
 )(props =>
     <GoogleMap 
     	//ref ={props.zoomToMarkers}
-       // defaultCenter = {{ lat: 27.9158175, lng: 34.3299505 }}
+        //defaultCenter = {{ lat: 27.9158175, lng: 34.3299505 }}
     	zoom = {props.zoom} 
-    	center = {props.center}
+    	center = {props.appCenter}
         mapTypeId = 'hybrid'//terrain 'satellite' roadmap hybrid
         ref = {props.onMapMounted}
         onZoomChanged = {props.onZoomChanged}
@@ -76,8 +77,10 @@ const GoogleMapExample = compose(
 
 			<Marker key={index}   position = {{lat: marker.lat, lng: marker.lng}} 
 			                      title = {marker.title} 
-                                  onClick = {() => {props.showInfo(index) 
-                                            props.changeCenter({lat: marker.lat, lng: marker.lng} )}  
+                                  onClick = {(event) => {props.showInfo(index) 
+                                                    //props.changeCenter({lat: marker.lat, lng: marker.lng})
+                                                    props.onMarkerClicked(event, {lat: marker.lat, lng: marker.lng})
+                                                    }  
                                         }
                                   animation = {google.maps.Animation.DROP } //CUSTOM_FADE BOUNCE
             >
@@ -99,32 +102,21 @@ const GoogleMapExample = compose(
 
 
 class Map extends Component {
-	static propTypes = {
-		locations: PropTypes.array.isRequired
-	}
+    	static propTypes = {
+    		locations: PropTypes.array.isRequired
+    	}
+
 		state = {
 			markers:[],
             center: {}
 		}
 	 	
-        updateCenter = (latlng) => {
-            this.setState({
-                center: latlng
-            })
-        }
-    // /*
-    // componentDidMount() {
-    // 	// might be used to fetch data from foursqaure and set markers
-    // }*/
-
 	render() {
-		let { locations, selectedLocation } = this.props
-        console.log('selectedLocation', selectedLocation)
-        let newCenter
-        if(selectedLocation !== undefined && selectedLocation.location !== undefined) {
-             newCenter = {lat: selectedLocation.location.lat, lng: selectedLocation.location.lng}
-    		//this.updateCenter(newCenter)
-            
+		let { locations, newCenter, onMarkerClick } = this.props
+        console.log('[Map] new Center value', newCenter)
+
+        let onLocationClicked = (event,  markerlocation) => {
+            onMarkerClick(event, markerlocation)
         }
         //let { } TO DO Read values from this.State
 		let locationsHasValue = false
@@ -139,13 +131,15 @@ class Map extends Component {
 						}
 				markers.push(marker) 
 			})
-			console.log('[Map.js]  Markers ', markers)
+			//console.log('[Map.js]  Markers ', markers)
 
 		}
 
 		return (
 			<div>
-				<GoogleMapExample markers= {markers}  center={newCenter}/>
+				<GoogleMapExample markers = {markers} 
+                    onMarkerClicked = {onLocationClicked}
+                    appCenter = {newCenter}/>
 			</div>
 			)
 	}
