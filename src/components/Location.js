@@ -17,13 +17,14 @@ class Location extends Component {
 	}
 
 	onItemClick = (event, location) => {
-		this.props.onClick(event)
-		console.log(location)
+		this.props.onClick(event, location)
+		console.log('[Location.js  location Clicked Item]', location)
 	}
 
 	 
 	handleKeyPress = (event, location) =>{
 		this.props.onKeyPress(event, location)
+		console.log('Location.js location >> ', location )
 	}
 	render() {
 		const{location, onClick, onKeyPress} = this.props

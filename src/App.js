@@ -8,13 +8,14 @@ import * as MapsDataAPI from './MapsDataAPI.js';
 class App extends Component {
   state = {
     locations: [],
-    originalLocations: []
+    originalLocations: [],
+    selectedLocation: {}
   }
 
 
   componentDidMount() {
     MapsDataAPI.getLocationsAll().then((locations) => {
-      console.log(locations);
+      console.log('Locations Array',locations);
       this.setState({locations})
       this.setState({originalLocations: locations})
     })
@@ -34,6 +35,9 @@ class App extends Component {
     if(event.key === 'Enter'){
       console.log('[app.js] Enter Key Pressed')
       console.log(location)
+      this.setState({
+        selectedLocation: location
+      })
     }
   }
   handleLocationItemClick = (event, location) => {
@@ -44,6 +48,10 @@ class App extends Component {
       } else {
         event.currentTarget.style.backgroundColor = origColor
       }
+      console.log('App.js selectedLocation ', location)
+      this.setState({
+        selectedLocation: location 
+      })
   }
 
   render() {
@@ -61,7 +69,9 @@ class App extends Component {
           />
         </div>
         <div id="map-container">
-          <Map locations={this.state.locations}  />
+          <Map  locations= {this.state.locations} 
+                selectedLocation = {this.state.selectedLocation}
+           />
         </div>      
       </div>
       </div>
