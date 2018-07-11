@@ -1,3 +1,6 @@
+.main{
+  background-color: #bcb7b7;
+}
 .App {
   text-align: center;
 }
@@ -10,13 +13,15 @@
 .App-header {
   background-color: #222;
   height: 40px;
-  margin-bottom: 3px;
+  margin-bottom: 0px;
   color: white;
   width:100%;
 }
 
 .App-title {
   font-size: 1.5em;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif; 
 }
 
 .App-intro {
@@ -63,8 +68,24 @@
   color: white;
   font-size: 20px;
 }
+.App-footer {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+.App-footer-text{
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  text-align: center;
+  background-color: #222;
+  color: white;
+  line-height: 3em;
+}
 ul {
   list-style-type: none;
+  margin: 0;
+  padding-left: 3px;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

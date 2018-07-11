@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map.js';
 import SearchPlaces from './components/SearchPlaces.js';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js'
 import * as MapsDataAPI from './MapsDataAPI.js';
 
 class App extends Component {
@@ -65,9 +67,7 @@ class App extends Component {
   render() {
     return (
       <div className="main">
-      <header className="App-header">
-          
-      </header>
+      <Header />
       <div id="main-container">   
          <div id="places-list">
           <SearchPlaces locations= {this.state.locations} 
@@ -81,8 +81,9 @@ class App extends Component {
                 newCenter = {this.state.newCenter}
                 onMarkerClick = {this.handleMarkerClicked}
            />
-        </div>      
+        </div>   
       </div>
+       <Footer />   
       </div>
       
     );
