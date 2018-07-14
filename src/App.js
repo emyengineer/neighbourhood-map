@@ -12,13 +12,17 @@ class App extends Component {
     locations: [],
     originalLocations: [],
     selectedLocation:{},
-    newCenter: {lat: 27.915817, lng: 34.3299505}
+    newCenter: {lat: 27.915817, lng: 34.3299505},
+    isOpen: false,
+    defaultCenter : {lat: 27.915817, lng: 34.3299505},
+    showInfoIndex: '0'
+    //showInfo: '0'
   }
 
 
   componentDidMount() {
     MapsDataAPI.getLocationsAll().then((locations) => {
-      // console.log('Locations Array',locations);
+      console.log('Locations Array',locations);
       this.setState({locations})
       this.setState({originalLocations: locations})
     })
@@ -36,7 +40,7 @@ class App extends Component {
 
   handleLocationSelected = (event, location) => {
     if(event.key === 'Enter'){
-      console.log('[app.js] Enter Key Pressed ', location)
+      //console.log('[app.js] Enter Key Pressed ', location)
       
       // this.setState({
       //   selectedLocation: location
@@ -54,16 +58,42 @@ class App extends Component {
    })
   }
   handleLocationItemClick = (event, location) => {
-      console.log('App.js selectedLocation ', location)
+      //console.log('App.js selectedLocation ', location)
       this.setNewCenter(location)
 
   }
-  handleMarkerClicked = (event, latlng) => {
-    console.log('latlang ', latlng)
+   handleShowInfo = (indx) => {
     this.setState({
-      newCenter : latlng
+      isOpen : !this.state.isOpen,
+      showInfoIndex: indx
     })
   }
+
+  handleMarkerClicked = (event, latlng, indx) => {
+    //console.log('latlang ', latlng)
+    //console.log('setting index', indx.index)
+    this.setState({
+      isOpen : !this.state.isOpen,
+      showInfoIndex: indx.index,
+      newCenter : latlng
+    })
+    //this.handleShowInfo(indx)
+  }
+
+  resetCenter = () => {
+    // console.log('resetting center to ' , this.state.defaultCenter)
+      this.setState({
+        newCenter: this.state.defaultCenter
+      })
+  }
+
+  handleToggleOpen = (event, latlng) => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+    this.resetCenter();
+  }
+ 
   render() {
     return (
       <div className="main">
@@ -80,6 +110,9 @@ class App extends Component {
           <Map  locations= {this.state.locations} 
                 newCenter = {this.state.newCenter}
                 onMarkerClick = {this.handleMarkerClicked}
+                onToggleOpen = {this.handleToggleOpen}
+                //onShowInfo = {this.handleShowInfo}
+                showInfoIndex = {this.state.showInfoIndex}
            />
         </div>   
       </div>

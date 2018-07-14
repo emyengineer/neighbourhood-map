@@ -82,6 +82,14 @@
   color: white;
   line-height: 3em;
 }
+.picture-Style {
+  width: 270px;
+  height: 270px;
+}
+.site-image {
+  width: 220px;
+  height: 220px;
+}
 ul {
   list-style-type: none;
   margin: 0;
