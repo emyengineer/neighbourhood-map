@@ -27,6 +27,7 @@
   font-family: Arial, Helvetica, sans-serif; 
   width:70%;
 }
+.header__menu {
   display: inline-block;
   /*position: absolute;*/
   right: 0;
