@@ -93,13 +93,18 @@ class App extends Component {
     })
     this.resetCenter();
   }
- 
+ handleNavMenuToggle = (event) => {
+  //Get PlaceList Nav Menu Bar
+  let placesNavMenu = document.querySelector("#places-list")
+  placesNavMenu.classList.toggle('open')
+  event.stopPropagation();
+ }
   render() {
     return (
       <div className="main">
-      <Header />
+      <Header onMenuClick = {this.handleNavMenuToggle}/>
       <div id="main-container">   
-         <div id="places-list">
+         <div id="places-list" className="nav">
           <SearchPlaces locations= {this.state.locations} 
             onUserDidSearch= {this.updateLocations}
             onhandleLocationSelected = {this.handleLocationSelected}
