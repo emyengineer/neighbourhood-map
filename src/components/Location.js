@@ -16,22 +16,22 @@ class Location extends Component {
 		location: {},
 	}
 
-	onItemClick = (event, location) => {
-		this.props.onClick(event, location)
+	onItemClick = (event, location, index) => {
+		this.props.onClick(event, location, index)
 		console.log('[Location.js  location Clicked Item]', location)
 	}
 
 	 
-	handleKeyPress = (event, location) =>{
-		this.props.onKeyPress(event, location)
+	handleKeyPress = (event, location, index) =>{
+		this.props.onKeyPress(event, location, index)
 		console.log('Location.js location >> ', location )
 	}
 	render() {
-		const{location, onClick, onKeyPress} = this.props
+		const{index, location, onClick, onKeyPress} = this.props
 
 		return (
-			<li tabIndex= {0} onClick={(event) => this.onItemClick(event, location)}
-				onKeyPress={(event) => this.handleKeyPress(event, location)}>
+			<li tabIndex= {0} onClick={(event) => this.onItemClick(event, location, {index})}
+				onKeyPress={(event) => this.handleKeyPress(event, location, {index})}>
 				{location.name}
 			</li>
 			)

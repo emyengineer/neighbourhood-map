@@ -70,11 +70,11 @@ class SearchPlaces extends Component {
 		let locationsHasItems = result.locationsHasItems
 		let filteredLocations = result.filteredLocations
 
-		let handleKeyPress = (event, location) => {
-				onhandleLocationSelected(event, location)
+		let handleKeyPress = (event, location, index) => {
+				onhandleLocationSelected(event, location, index)
 			}
-		let onItemClickHandler = (event, location) => {
-			onItemClick(event, location)
+		let onItemClickHandler = (event, location, index) => {
+			onItemClick(event, location, index)
 		}
 
 		return  (
@@ -89,8 +89,10 @@ class SearchPlaces extends Component {
 				{ (locationsHasItems) && (
 					<ul id="locations-list">
 						{filteredLocations.map((item, index) => 
-							(<Location key= {index} location= {item} 
-								onClick= {onItemClickHandler}
+							(<Location key = {index} 
+								location = {item} 
+								index = {index}
+								onClick = {onItemClickHandler}
 								onKeyPress = {handleKeyPress}>
 							</Location>)
 						)}

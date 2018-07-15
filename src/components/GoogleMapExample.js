@@ -65,6 +65,9 @@ const GoogleMapExample = compose(
     withGoogleMap
 )(props =>
 {
+     let iconDefault = {
+        url: 'http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png' //'http://maps.gstatic.com/mapfiles/markers2/marker.png'//'http://maps.google.com/mapfiles/ms/icons/POI.shadow.png' //google.maps.SymbolPath.CIRCLE, //FORWARD_CLOSED_ARROW
+    }
     return (
     <GoogleMap 
     	//ref ={props.zoomToMarkers}
@@ -79,11 +82,12 @@ const GoogleMapExample = compose(
     {  
         props.markers.map((marker, index) => (
 		<Marker key={index}   
+                icon = {props.showInfoIndex === index?  props.markerIcon : iconDefault}
                 position = {{lat: marker.lat, lng: marker.lng}} 
 		        title = {marker.title} 
                 onClick = {(event) => {
                 props.onMarkerClicked(event, {lat: marker.lat, lng: marker.lng}, {index})}}
-                animation = {google.maps.Animation.DROP } //CUSTOM_FADE BOUNCE
+                animation = {props.showInfoIndex === index? google.maps.Animation.BOUNCE : google.maps.Animation.DROP } //CUSTOM_FADE BOUNCE
         > 
 			{(props.showInfoIndex == index) && 
                 <InfoWindow  onCloseClick = {(event) => {

@@ -15,16 +15,28 @@ class App extends Component {
     newCenter: {lat: 27.915817, lng: 34.3299505},
     isOpen: false,
     defaultCenter : {lat: 27.915817, lng: 34.3299505},
-    showInfoIndex: '0'
+    showInfoIndex: '0',
+    markerIcon: {},
+    defaultMarkerIcon :{}
     //showInfo: '0'
   }
-
+  componentWillMount() {
+    let icon = {
+        url: 'http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png'//'http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png' //'http://maps.gstatic.com/mapfiles/markers2/marker.png'//'http://maps.google.com/mapfiles/ms/icons/POI.shadow.png' //google.maps.SymbolPath.CIRCLE, //FORWARD_CLOSED_ARROW
+    }
+    this.setState({
+      markerIcon: icon,
+      defaultMarkerIcon: icon
+    })
+  }
 
   componentDidMount() {
     MapsDataAPI.getLocationsAll().then((locations) => {
       console.log('Locations Array',locations);
       this.setState({locations})
       this.setState({originalLocations: locations})
+    }).catch((error) => {
+      console.log('Error While Getting All Locations')
     })
   }
 
@@ -38,14 +50,15 @@ class App extends Component {
     }
   }
 
-  handleLocationSelected = (event, location) => {
+  handleLocationSelected = (event, location, index) => {
     if(event.key === 'Enter'){
       //console.log('[app.js] Enter Key Pressed ', location)
-      
-      // this.setState({
-      //   selectedLocation: location
-      // })
-      this.setNewCenter(location)
+      //this.setNewCenter(location)
+      let newCenter = { lat: 27.9158175, lng: 34.3299505 }
+      if(location !== undefined && location.location !== undefined) {
+          newCenter = {lat: location.location.lat, lng: location.location.lng}            
+      }
+      this.handleMarkerClicked(event, this.state.newCenter, index)
     }
   }
   setNewCenter = (location) => {
@@ -57,9 +70,14 @@ class App extends Component {
       newCenter: newCenter
    })
   }
-  handleLocationItemClick = (event, location) => {
-      //console.log('App.js selectedLocation ', location)
-      this.setNewCenter(location)
+  handleLocationItemClick = (event, location, index) => {
+    console.log('App.js selectedLocation index ', index)
+      //this.setNewCenter(location)
+    let newCenter = { lat: 27.9158175, lng: 34.3299505 }
+    if(location !== undefined && location.location !== undefined) {
+         newCenter = {lat: location.location.lat, lng: location.location.lng}            
+    }
+      this.handleMarkerClicked(event, newCenter, index)
 
   }
    handleShowInfo = (indx) => {
@@ -70,14 +88,21 @@ class App extends Component {
   }
 
   handleMarkerClicked = (event, latlng, indx) => {
-    //console.log('latlang ', latlng)
-    //console.log('setting index', indx.index)
+    let goldStar = {
+        path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+        fillColor: 'yellow',
+        fillOpacity: 0.8,
+        scale: 0.1,
+        strokeColor: 'gold',
+        strokeWeight: 3
+    };
     this.setState({
       isOpen : !this.state.isOpen,
       showInfoIndex: indx.index,
-      newCenter : latlng
+      newCenter : latlng,
+      markerIcon: goldStar
     })
-    //this.handleShowInfo(indx)
+
   }
 
   resetCenter = () => {
@@ -89,7 +114,8 @@ class App extends Component {
 
   handleToggleOpen = (event, latlng) => {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
+      markerIcon: this.state.defaultMarkerIcon
     })
     this.resetCenter();
   }
@@ -100,6 +126,7 @@ class App extends Component {
   event.stopPropagation();
  }
   render() {
+    
     return (
       <div className="main">
       <Header onMenuClick = {this.handleNavMenuToggle}/>
@@ -115,9 +142,9 @@ class App extends Component {
           <Map  locations= {this.state.locations} 
                 newCenter = {this.state.newCenter}
                 onMarkerClick = {this.handleMarkerClicked}
-                onToggleOpen = {this.handleToggleOpen}
-                //onShowInfo = {this.handleShowInfo}
+                onToggleOpen = {this.handleToggleOpen}                
                 showInfoIndex = {this.state.showInfoIndex}
+                markerIcon = {this.state.markerIcon}
            />
         </div>   
       </div>

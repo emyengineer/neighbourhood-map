@@ -13,7 +13,7 @@ class Map extends Component {
 		}
 	 	
 	render() {
-		let { locations, newCenter, onMarkerClick, onToggleOpen , showInfoIndex } = this.props
+		let { locations, newCenter, onMarkerClick, onToggleOpen , showInfoIndex , markerIcon} = this.props
         //console.log('[Map locations ]', locations)
         //console.log('[Map] new Center value', newCenter)
         //console.log('Map showInfoIndex ' ,showInfoIndex)
@@ -47,8 +47,8 @@ class Map extends Component {
                     onMarkerClicked = {onLocationClicked}
                     appCenter = {newCenter}
                     onToggleOpen = {handleOnToggleOpen}
-                    //onShowInfo = {onShowInfo}
                     showInfoIndex = {showInfoIndex}
+                    markerIcon = {markerIcon}
                     />
 			</div>
 			)
