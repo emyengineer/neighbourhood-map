@@ -17,66 +17,31 @@ const GoogleMapExample = compose(
     withState('center', 'onCenterChange', {lat: 27.9158175, lng: 34.3299505}),
     withState('zoom', 'onZoomChange', 15),
     withHandlers(() => {
-           /* const refs = {
+            const refs = {
               map: undefined,
             }
             return {
               onMapMounted: () => ref => {
                 refs.map = ref
-              },
-              onZoomChanged: ({ onZoomChange }) => () => {
-                onZoomChange(refs.map.getZoom())
-               // alert('Zoom Changed')
-              },
-              onCenterChanged : ({onCenterChange}) => () => {
-                onCenterChange(refs.map.getCenter())
-                //alert('Center Changed')
-              } 
-            }*/
-  }),
-    lifecycle({
-        componentDidMount() {
-          //console.log('props Markers', this.props.markers)
-          this.setState({
-            zoomToMarkers: map => {
-                
                 console.log("Zoom to markers");
                 const bounds = new window.google.maps.LatLngBounds();
-                map.props.children.forEach((child) => {
+                ref.props.children.forEach((child) => {
                     console.log('iterating over map children')
                     if (child.type === Marker) {
                         console.log('extending bounds for ', child.props.position.lat, child.props.position.lng)
                         bounds.extend(new window.google.maps.LatLng(child.props.position.lat, child.props.position.lng));
                     }
                 })
-                map.fitBounds(bounds);
-            
-        }
-        })
+                ref.fitBounds(bounds);
+              }
+            }
+  }),
+    lifecycle({
+        componentDidMount() {
+        
         },
     }),
-   //withStateHandlers(() => ({
-	// isOpen: false,
-	// showInfo: '0',
-   //      zoom: 12,
-   //      center: { lat: 27.915817, lng: 34.3299505 }
-	  // }),
-   //     {
-    // onToggleOpen: ({ isOpen }) => () => ({
-    //   	isOpen: !isOpen,
-    //   }),
-    // showInfo: ({showInfo, isOpen}) => (a) => ({
-    // 	isOpen: !isOpen,
-    // 	showInfoIndex: a
-   	//  })
-    // ,
-    // // changeCenter:({center}) => (newCenter) => ({
-    // //     center: newCenter
-    // //  }),
-    // resetCenter: ({center}) => (defaultCenter) => ({
-    //     center: defaultCenter
-    //  })
-  	//}),
+   
     withScriptjs,
     withGoogleMap
 )(props =>
@@ -86,12 +51,12 @@ const GoogleMapExample = compose(
     }
     return (
     <GoogleMap 
-    	ref ={props.zoomToMarkers}
+    	//ref ={props.zoomToMarkers}
         //defaultCenter = {{ lat: 27.9158175, lng: 34.3299505 }}
     	zoom = { props.zoom} 
     	center = {props.appCenter}
         mapTypeId = 'roadmap'//terrain 'satellite' roadmap hybrid
-        //ref = {props.onMapMounted}
+        ref = {props.onMapMounted}
         onZoomChanged = {props.onZoomChanged}
         onCenterChanged = {props.onCenterChanged}
     >
