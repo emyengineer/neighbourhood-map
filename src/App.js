@@ -19,7 +19,8 @@ class App extends Component {
     markerIcon: {},
     defaultMarkerIcon :{},
     zoom : 17,
-    defaultZoom : 15
+    defaultZoom : 15,
+    selectedColorBlack: true
   }
   componentWillMount() {
     let icon = {
@@ -104,7 +105,7 @@ class App extends Component {
       markerIcon: goldStar,
       zoom: 17
     })
-
+    this.changeLocationColor()
   }
 
   resetCenter = () => {
@@ -128,8 +129,11 @@ class App extends Component {
   placesNavMenu.classList.toggle('open')
   event.stopPropagation();
  }
+ changeLocationColor = () => {
+  this.setState({selectedColorBlack: !this.state.selectedColorBlack})
+ } 
   render() {
-    
+    let color = this.state.selectedColorBlack ? "locations-list": "selectedcolor"
     return (
       <div className="main">
       <Header onMenuClick = {this.handleNavMenuToggle}/>
@@ -139,17 +143,26 @@ class App extends Component {
             onUserDidSearch= {this.updateLocations}
             onhandleLocationSelected = {this.handleLocationSelected}
             onItemClick = {this.handleLocationItemClick}
+            color = {color}
           />
         </div>
         <div id="map-container">
-          <Map  locations= {this.state.locations} 
+         { (navigator.onLine) && (<Map  locations= {this.state.locations} 
                 newCenter = {this.state.newCenter}
                 onMarkerClick = {this.handleMarkerClicked}
                 onToggleOpen = {this.handleToggleOpen}                
                 showInfoIndex = {this.state.showInfoIndex}
                 markerIcon = {this.state.markerIcon}
                 zoom = {this.state.zoom}
-           />
+           />)
+          } 
+          { (!navigator.onLine) && 
+            (<div>
+              <h2>Map is offline</h2>
+              <p>You are still can access cached visited pages </p>
+            </div>)
+
+          }
         </div>   
       </div>
        <Footer />   

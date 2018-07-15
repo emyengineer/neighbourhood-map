@@ -11,7 +11,7 @@
 }
 
 .App-header {
-  /*background-color: #222;*/
+  background-color: #222;
   /*height: 100px;*/
   margin-bottom: 0px;
   color: white;
@@ -21,22 +21,22 @@
 }
 
 .App-title {
-  color:blue;
+  color:#FFC107;
   font-size: 1.5em;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif; 
-  width:70%;
+  width: 80%;
 }
 .header__menu {
   display: inline-block;
   /*position: absolute;*/
   right: 0;
   /*padding: 1em;*/
-  width: 30%;
+  width: 20%;
 }
 a#menu svg {
   width: 40px;
-  fill: #000;
+  fill: #00bcd4fa;
 }
 .nav{
     z-index: 10;
@@ -71,33 +71,53 @@ a#menu svg {
   box-sizing: border-box;
 
 }
-#places-list {
-  /*width: 300px;*/
-}
 
-#locations-list {
+ul.locations-list {
   display: block;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  height: 450px;
-  color: blue;
-  font-style: italic;
+  height: 82vh;
+  color: #f3f0f0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  line-height: 1.5;
-  overflow: scroll;
-  background-color: #B0C4DE;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+  background-color: #2E3D49;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ul.selectedcolor {
+  color: yellow;
+  display: block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 82vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+  background-color: #2E3D49;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.filter-container{
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 #search-filter-text {
-  width :300px;
+  width :70%;
   height: 30px;
 }
-#search-btn {
-  width: 100px;
-  height: 35px;
-  border-radius: 5px;
+.search-filter {
+  width: 30%;
+  height: 36px; /* top left, top right, bottom right, bottom left */
+  border-radius: 0px 5px 5px 0px;
   background-color: #02b3e4;
   color: white;
-  font-size: 20px;
+  font-size: 29px;
 }
 .App-footer {
   height: 100%;
@@ -126,7 +146,36 @@ ul {
   margin: 0;
   padding-left: 3px;
 }
-
+@media screen and (max-width: 399px) {
+  .nav{
+    width: 350px;
+    -webkit-transform: translate(-350px, 0);
+    transform: translate(-350px, 0);
+  }
+   .App-title {
+    font-size: 1em;
+  }
+}
+@media screen and  (max-width: 367px) {
+  .nav{
+    width: 320px;
+    -webkit-transform: translate(-320px, 0);
+    transform: translate(-320px, 0);
+  }
+  .App-title {
+    font-size: 1em;
+  }
+  .search-filter {
+    font-size: 20px;
+  }
+}
+@media screen and  (max-width: 337px) {
+  .nav{
+    width: 300px;
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+  }
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

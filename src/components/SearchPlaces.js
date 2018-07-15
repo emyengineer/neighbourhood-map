@@ -64,7 +64,7 @@ class SearchPlaces extends Component {
 
 
 	render() {
-		let { locations, onUserDidSearch , onhandleLocationSelected, onItemClick} = this.props
+		let { locations, onUserDidSearch , onhandleLocationSelected, onItemClick, color} = this.props
 		let{ query, locationsSearchResult } = this.state
 		let result = this.searchLocations(query)
 		let locationsHasItems = result.locationsHasItems
@@ -78,16 +78,17 @@ class SearchPlaces extends Component {
 		}
 
 		return  (
-			<div>
-				<Debounce time="1000" handler="onChange">
-					<input	id="search-filter-text" type="text" 
-					placeholder="Enter Resort Or Hotel Name"
-					onChange = {(event) => this.handleTextChange(event.target.value, event)}/>
-				</Debounce>
-				<input  id="search-btn"    type="button" value="Search"/>
-				<hr/>
+			<div >
+				<div className="filter-container">
+					<Debounce time="1000" handler="onChange">
+						<input	id="search-filter-text" type="text" 
+						placeholder="Enter Resort Or Hotel Name"
+						onChange = {(event) => this.handleTextChange(event.target.value, event)}/>
+					</Debounce>
+					<span className="search-filter"><i className="fa fa-filter" aria-hidden="true"></i> Filter</span>
+				</div>
 				{ (locationsHasItems) && (
-					<ul id="locations-list">
+					<ul className="locations-list">
 						{filteredLocations.map((item, index) => 
 							(<Location key = {index} 
 								location = {item} 
