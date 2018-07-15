@@ -15,10 +15,11 @@ class App extends Component {
     newCenter: {lat: 27.915817, lng: 34.3299505},
     isOpen: false,
     defaultCenter : {lat: 27.915817, lng: 34.3299505},
-    showInfoIndex: '0',
+    showInfoIndex: -1 ,
     markerIcon: {},
-    defaultMarkerIcon :{}
-    //showInfo: '0'
+    defaultMarkerIcon :{},
+    zoom : 17,
+    defaultZoom : 15
   }
   componentWillMount() {
     let icon = {
@@ -100,7 +101,8 @@ class App extends Component {
       isOpen : !this.state.isOpen,
       showInfoIndex: indx.index,
       newCenter : latlng,
-      markerIcon: goldStar
+      markerIcon: goldStar,
+      zoom: 17
     })
 
   }
@@ -115,7 +117,8 @@ class App extends Component {
   handleToggleOpen = (event, latlng) => {
     this.setState({
       isOpen: !this.state.isOpen,
-      markerIcon: this.state.defaultMarkerIcon
+      markerIcon: this.state.defaultMarkerIcon,
+      zoom: this.state.defaultZoom
     })
     this.resetCenter();
   }
@@ -145,6 +148,7 @@ class App extends Component {
                 onToggleOpen = {this.handleToggleOpen}                
                 showInfoIndex = {this.state.showInfoIndex}
                 markerIcon = {this.state.markerIcon}
+                zoom = {this.state.zoom}
            />
         </div>   
       </div>
