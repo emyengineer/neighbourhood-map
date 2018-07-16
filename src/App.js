@@ -49,8 +49,9 @@ class App extends Component {
       this.setState({locations})
       this.setState({originalLocations: locations})
     }).catch((error) => {
-      console.log('Error While Getting All Locations')
       alert('Error While getting All Locations data from FourSquare API >> Sorry!! Locations Data Will not be loaded or displayed ')
+      console.log('Error While Getting All Locations')
+      
     })
   }
 

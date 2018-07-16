@@ -9,7 +9,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 class SearchPlaces extends Component {
 	static propTypes = {
-		locations: PropTypes.array.isRequired,
+		//locations: PropTypes.array.isRequired,
 		onUserDidSearch: PropTypes.func.isRequired,
 		onhandleLocationSelected: PropTypes.func.isRequired
 	}

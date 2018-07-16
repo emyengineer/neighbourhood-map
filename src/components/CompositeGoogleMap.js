@@ -40,6 +40,10 @@ const CompositeGoogleMap = compose(
         componentDidMount() {
         
         },
+        componentDidCatch(error, info) {
+            console.log(error)
+            alert("Error Occured while trying to render google maps API Please check your credentials")
+        }
     }),
    
     withScriptjs,
@@ -49,6 +53,7 @@ const CompositeGoogleMap = compose(
      let iconDefault = {
         url: 'http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png' //'http://maps.gstatic.com/mapfiles/markers2/marker.png'//'http://maps.google.com/mapfiles/ms/icons/POI.shadow.png' //google.maps.SymbolPath.CIRCLE, //FORWARD_CLOSED_ARROW
     }
+    
     return (
     <GoogleMap 
     	//ref ={props.zoomToMarkers}
@@ -70,7 +75,7 @@ const CompositeGoogleMap = compose(
                 props.onMarkerClicked(event, {lat: marker.lat, lng: marker.lng}, {index})}}
                 animation = {props.showInfoIndex === index? google.maps.Animation.BOUNCE : google.maps.Animation.DROP } //CUSTOM_FADE BOUNCE
         > 
-			{(props.showInfoIndex == index) && 
+			{(props.showInfoIndex === index) && 
                 <InfoWindow  onCloseClick = {(event) => {
                     props.onToggleOpen(event, {lat: marker.lat, lng: marker.lng})}}>
 				   <InfoWindowContent title = {marker.title} 
@@ -80,7 +85,7 @@ const CompositeGoogleMap = compose(
 			    </InfoWindow>}
 		</Marker>
 	))}
-    </GoogleMap>
+    </GoogleMap> 
     )
 }
 );

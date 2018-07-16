@@ -4,7 +4,7 @@ import CompositeGoogleMap from './CompositeGoogleMap.js'
 
 class Map extends Component {
     	static propTypes = {
-    		locations: PropTypes.array.isRequired
+    		//locations: PropTypes.array.isRequired
     	}
 
 		state = {
@@ -14,16 +14,13 @@ class Map extends Component {
 	 	
 	render() {
 		let { locations, newCenter, onMarkerClick, onToggleOpen , showInfoIndex , markerIcon, zoom} = this.props
-        //console.log('[Map locations ]', locations)
-        //console.log('[Map] new Center value', newCenter)
-        //console.log('Map showInfoIndex ' ,showInfoIndex)
+
         let onLocationClicked = (event,  markerlocation, indx) => {
             onMarkerClick(event, markerlocation, indx)
         }
         let handleOnToggleOpen = (event, latlng) => {
             onToggleOpen(event, latlng)
         }
-        //let { } TO DO Read values from this.State
 		let locationsHasValue = false
 		let markers = []
 		if(locations !== undefined && locations !== null && locations.length > 0) locationsHasValue =true
@@ -37,7 +34,6 @@ class Map extends Component {
 						}
 				markers.push(marker) 
 			})
-			//console.log('[Map.js]  Markers ', markers)
 
 		}
 

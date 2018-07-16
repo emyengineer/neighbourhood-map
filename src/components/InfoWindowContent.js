@@ -18,7 +18,7 @@ class InfoWindowContent extends Component {
 
 
 		function handleErrors(response) {
-		    if (!response.ok) {
+		    if (response === undefined) {
 		      console.log('[Venue details ]response status Text',  response)
 		      this.setState({
 					success:false
@@ -29,9 +29,9 @@ class InfoWindowContent extends Component {
 		}
 
 		MapsDataAPI.getVenueDetails(this.props.venueId)
-		//.then(handleErrors)
+		.then(handleErrors)
 		.then(data => {
-		//console.log('Venue Details ', data)
+		
 		if(data !== undefined && data !== null) {
 		const bestPhoto =  data.bestPhoto
 		if(bestPhoto !== undefined && bestPhoto !== null) {
@@ -39,7 +39,7 @@ class InfoWindowContent extends Component {
 		} else {
 			img = process.env.PUBLIC_URL+'/no-photo-available.jpg'
 		}
-		//console.log('img  ', img)
+		
 		let isOpen = ((data.hours !== undefined && data.hours.isopen))? 'Working Hours: '+ data.hours.isopen : 'Un available working hours'
 		let address = ((data.Location !== undefined && data.location.address )? 'Location : '+ data.location.address : '')
 		let phone = ((data.contact !== undefined && data.contact.phone) ? 'Phone: '+ data.contact.phone : '' )
@@ -50,7 +50,6 @@ class InfoWindowContent extends Component {
 						  ${rating} ${isOpen} Time Zone: ${data.timeZone}`
 
 		}
-			//let imageSrc = URL.createObjectURL(img)
 		this.setState({
 			success: true,
 			venueDetails : data,
@@ -75,7 +74,6 @@ class InfoWindowContent extends Component {
 		return (
 			<div className="picture-Style" tabIndex = {0} aria-label="Info window">
 				<div className="window-title" tabIndex = {0}> {title }	</div>	
-				{console.log(this.state.success)}
 				{ 
 				(this.state.success) &&	(this.state.imageSrc !== undefined && this.state.imageSrc !== null) && (
 					<ul id="images-list" tabIndex = {0}>					
