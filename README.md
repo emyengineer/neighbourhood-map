@@ -37,7 +37,7 @@ _Is a project built using **React**, it has 1 main page:_
   *  Location.js
   *  Map.js
   *  SearchPlaces.js
-  *  GoogleMapExample.js
+  *  CompositeGoogleMap.js
   and MapsDataAPI.js used to get data from third party API FourSquareAPI https://foursquare.com/developers/  Asynchronously
 * _**App.js**_ component is the top parent component that handles all state and data processing from inside it
 
