@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import fetch from 'isomorphic-fetch'
 const FaAnchor = require("react-icons/lib/fa/anchor")
 
-const GoogleMapExample = compose(
+const CompositeGoogleMap = compose(
     withProps({ 	
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBfB8UMdS7E9dAIHPW3HzKTkkjsMHg2i0I",
         loadingElement: <div style={{ height: '100%' }} />,
@@ -85,4 +85,4 @@ const GoogleMapExample = compose(
 }
 );
 
-export default GoogleMapExample
+export default CompositeGoogleMap

@@ -75,7 +75,17 @@ a#menu svg {
   box-sizing: border-box;
 
 }
-
+.load-failed {
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: red;
+  padding:10px;
+}
+.window-title {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: blue;
+}
 ul.locations-list {
   display: block;
   -webkit-box-sizing: border-box;

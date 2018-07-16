@@ -33,13 +33,24 @@ class App extends Component {
     })
   }
 
+
   componentDidMount() {
-    MapsDataAPI.getLocationsAll().then((locations) => {
-      //console.log('Locations Array',locations);
+
+    function handleErrors(response) {
+    if (!response.ok) {
+      console.log('response status Text',  response)
+        throw Error(response.statusText);
+    }
+    return response;
+  }
+    MapsDataAPI.getLocationsAll()
+    //.then(handleErrors)
+    .then((locations) => {
       this.setState({locations})
       this.setState({originalLocations: locations})
     }).catch((error) => {
       console.log('Error While Getting All Locations')
+      alert('Error While getting All Locations data from FourSquare API >> Sorry!! Locations Data Will not be loaded or displayed ')
     })
   }
 

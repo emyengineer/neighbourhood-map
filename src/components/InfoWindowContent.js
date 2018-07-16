@@ -9,12 +9,28 @@ class InfoWindowContent extends Component {
 	state = {
 		imageSrc: {},	
 		venueDetails: {},
-		detailsString: ''
+		detailsString: '',
+		success: false
 	}
 	componentWillMount() {
 		let img
 		let constructString
-		MapsDataAPI.getVenueDetails(this.props.venueId).then(data => {
+
+
+		function handleErrors(response) {
+		    if (!response.ok) {
+		      console.log('[Venue details ]response status Text',  response)
+		      this.setState({
+					success:false
+			  })
+		        throw Error(response.statusText);
+		    }
+		    return response;
+		}
+
+		MapsDataAPI.getVenueDetails(this.props.venueId)
+		//.then(handleErrors)
+		.then(data => {
 		//console.log('Venue Details ', data)
 		if(data !== undefined && data !== null) {
 		const bestPhoto =  data.bestPhoto
@@ -36,81 +52,41 @@ class InfoWindowContent extends Component {
 		}
 			//let imageSrc = URL.createObjectURL(img)
 		this.setState({
+			success: true,
 			venueDetails : data,
 			imageSrc: img,
 			detailsString: constructString
 		})		
+		}).catch(error => {
+			console.log(`Error while Getting Venue Details FourSquareService May Be un reachable or unavailable `, error)
+			alert('Error while Getting Venue Details FourSquareAPiService may be un reachable or unavailable') 
+			this.setState({
+				success:false
+			})
 		})
 	}
 	componentDidMount() {
 		 
 	} 
 	
-	setImageSrc =(placeData) => {
-		/* this code should be uncommented and put inside componentWillMount() Event
-			or componentDidMount if we are getting data from Google Places API
-			this.setState({
-			picsArray : []
-		})
-		console.log('[componentWillMount InfoWindowContent ] latlng ', this.props.latlng)
-		const latlng = this.props.latlng
-		MapsDataAPI.getPlaceIdByGeocoding(latlng).then((placeData) => {
-			console.log(`[Place Data for latlng => ${latlng} ]`, placeData)
-			this.setImageSrc(placeData)
-					
-		})
-	
-		*/
-		//this.state.images = placeData
-		let imageSrc = {}
-		let pictures =[]
-		if(	placeData !==null &&
-		 	placeData !==undefined &&
-		 	placeData.results !== undefined && placeData.results.length > 0) {
-			placeData.results.map(result => {
-
-				MapsDataAPI.getPlaceDetails(result.place_id).then((data) => {
-				console.log('[render getPlaceDetails ] ',  data)
-						if( data.photos !== undefined &&
-							data.photos !== null && data.photos.length > 0) {
-							data.photos.map(photoRef => {
-								MapsDataAPI.getPlacePhoto(photoRef.photo_reference).
-								then((data) => {
-									//console.log('[Photos Data] ',data)
-									imageSrc = URL.createObjectURL(data) 
-									//this.state.picsArray.push(imageSrc)
-									 //console.log('Image Source ', imageSrc)
-									 pictures.push(imageSrc)
-									 this.setState({	picsArray: pictures})
-								})
-							})							
-					}
-				}).catch(error => {
-					console.log('Error while getting Place Details', error)
-				})	
-			})
-			console.log(pictures)
-			
-			
-		}
-	}
-
 	render() {
 		const {title, latlng, venueId} = this.props
 
 		return (
 			<div className="picture-Style" tabIndex = {0} aria-label="Info window">
-				<div tabIndex = {0}> ' '+{title }	</div>	
+				<div className="window-title" tabIndex = {0}> {title }	</div>	
+				{console.log(this.state.success)}
 				{ 
-					(this.state.imageSrc !== undefined && this.state.imageSrc !== null) && (
+				(this.state.success) &&	(this.state.imageSrc !== undefined && this.state.imageSrc !== null) && (
 					<ul id="images-list" tabIndex = {0}>					
 							<ImageViewer  imageSrc = {this.state.imageSrc} 
 							 detailsData = {this.state.detailsString} >
 							</ImageViewer>
 						
-					</ul>
-					)				
+					</ul>)
 				}
+				{(!this.state.success) && 
+				( <div className="load-failed">Failed to Load data from foursquare API to get Venue details</div>)}				
 			</div>
 			)
 	}

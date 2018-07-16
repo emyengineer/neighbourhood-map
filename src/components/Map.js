@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import GoogleMapExample from './GoogleMapExample.js'
+import CompositeGoogleMap from './CompositeGoogleMap.js'
 
 class Map extends Component {
     	static propTypes = {
@@ -46,7 +46,7 @@ class Map extends Component {
 				<span id="rg-label" className="hide-label">
 		        Google Maps Navigation
 		      </span>
-				<GoogleMapExample markers = {markers} 
+				<CompositeGoogleMap markers = {markers} 
                     onMarkerClicked = {onLocationClicked}
                     appCenter = {newCenter}
                     onToggleOpen = {handleOnToggleOpen}

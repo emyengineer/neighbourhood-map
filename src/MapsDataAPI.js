@@ -9,20 +9,28 @@ const headers = {
   'Accept': 'application/json',
   'Authorization': token
 }
-
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+}
 export const getLocationsAll = () =>
   fetch(`${api}/venues/search?ll=27.9158175,34.3299505&intent=browse&radius=10000&query=resorts&client_id=ETBUYYTEGDY4WCF1IZXYZJVILWVA5NTLHGQ0WHA13OL2QGA2&client_secret=MJRDFQ43T0FSXPBBFA535VVJVKLUFATMY5IHP2DOFTOKZSYP&v=20180708`)
+    .then(handleErrors)
     .then(res => res.json())
     .then(data => data.response.venues)
+    //.catch(error => {console.log('Error While getting All Locations data from FourSquare API', error)})
 
 export const getVenueDetails = (venueId)=> {
 let venueDetailsUrl =[`/venues/${venueId}?`,
 					  `client_id=ETBUYYTEGDY4WCF1IZXYZJVILWVA5NTLHGQ0WHA13OL2QGA2`,
 					  `&client_secret=MJRDFQ43T0FSXPBBFA535VVJVKLUFATMY5IHP2DOFTOKZSYP&v=20180708`].join("")
+
 return	fetch(`${api}${venueDetailsUrl}`)
 		.then(res => res.json())
 		.then(data => data.response.venue)
-		.catch(error => {console.log(`Error while Getting Venue Details `, error)})
+		//.catch(error => {console.log(`Error while Getting Venue Details `, error)})
 }
 
 /***********************Google Maps API*****************************************************/
