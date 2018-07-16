@@ -55,7 +55,7 @@ class SearchPlaces extends Component {
 	}
 
 	handleTextChange = (query, event) => {
-		console.log('query is'+ query)
+		//console.log('query is'+ query)
 		this.updateQuery(query)
 		let result = this.searchLocations(query)
 		this.props.onUserDidSearch(result.filteredLocations, query)

@@ -23,7 +23,7 @@ class InfoWindowContent extends Component {
 		} else {
 			img = process.env.PUBLIC_URL+'/no-photo-available.jpg'
 		}
-		console.log('img  ', img)
+		//console.log('img  ', img)
 		let isOpen = ((data.hours !== undefined && data.hours.isopen))? 'Working Hours: '+ data.hours.isopen : 'Un available working hours'
 		let address = ((data.Location !== undefined && data.location.address )? 'Location : '+ data.location.address : '')
 		let phone = ((data.contact !== undefined && data.contact.phone) ? 'Phone: '+ data.contact.phone : '' )

@@ -35,7 +35,7 @@ class App extends Component {
 
   componentDidMount() {
     MapsDataAPI.getLocationsAll().then((locations) => {
-      console.log('Locations Array',locations);
+      //console.log('Locations Array',locations);
       this.setState({locations})
       this.setState({originalLocations: locations})
     }).catch((error) => {
@@ -74,7 +74,7 @@ class App extends Component {
    })
   }
   handleLocationItemClick = (event, location, index) => {
-    console.log('App.js selectedLocation index ', index)
+    //console.log('App.js selectedLocation index ', index)
       //this.setNewCenter(location)
     let newCenter = { lat: 27.9158175, lng: 34.3299505 }
     if(location !== undefined && location.location !== undefined) {

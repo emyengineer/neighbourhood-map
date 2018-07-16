@@ -23,12 +23,12 @@ const GoogleMapExample = compose(
             return {
               onMapMounted: () => ref => {
                 refs.map = ref
-                console.log("Zoom to markers");
+                //console.log("Zoom to markers");
                 const bounds = new window.google.maps.LatLngBounds();
                 ref.props.children.forEach((child) => {
-                    console.log('iterating over map children')
+                   // console.log('iterating over map children')
                     if (child.type === Marker) {
-                        console.log('extending bounds for ', child.props.position.lat, child.props.position.lng)
+                        //console.log('extending bounds for ', child.props.position.lat, child.props.position.lng)
                         bounds.extend(new window.google.maps.LatLng(child.props.position.lat, child.props.position.lng));
                     }
                 })
