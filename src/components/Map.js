@@ -43,6 +43,9 @@ class Map extends Component {
 
 		return (
 			<div>
+				<span id="rg-label" className="hide-label">
+		        Google Maps Navigation
+		      </span>
 				<GoogleMapExample markers = {markers} 
                     onMarkerClicked = {onLocationClicked}
                     appCenter = {newCenter}

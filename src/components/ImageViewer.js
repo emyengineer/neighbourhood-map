@@ -8,8 +8,8 @@ class  ImageViewer extends Component {
 
 		return (
 			<div>
-			<img id="img" tabIndex= "0" className="site-image" src={imageSrc} />
-			<div> {detailsData}</div>
+			<img id="img" tabIndex = {0} alt="Beautiful Image of the resort best image on the sea" className="site-image" src={imageSrc} />
+			<div tabIndex = {0}> {detailsData}</div>
 			</div>
 			)
 	}

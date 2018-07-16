@@ -48,7 +48,7 @@ class InfoWindowContent extends Component {
 	
 	setImageSrc =(placeData) => {
 		/* this code should be uncommented and put inside componentWillMount() Event
-			or componentDidMount
+			or componentDidMount if we are getting data from Google Places API
 			this.setState({
 			picsArray : []
 		})
@@ -99,11 +99,11 @@ class InfoWindowContent extends Component {
 		const {title, latlng, venueId} = this.props
 
 		return (
-			<div className="picture-Style">
-				<div>` ' ' {title }`	</div>	
+			<div className="picture-Style" tabIndex = {0} aria-label="Info window">
+				<div tabIndex = {0}> ' '+{title }	</div>	
 				{ 
 					(this.state.imageSrc !== undefined && this.state.imageSrc !== null) && (
-					<ul id="images-list">					
+					<ul id="images-list" tabIndex = {0}>					
 							<ImageViewer  imageSrc = {this.state.imageSrc} 
 							 detailsData = {this.state.detailsString} >
 							</ImageViewer>

@@ -9,8 +9,12 @@ class Footer extends Component {
 
 
 		return(
-			<footer className="App-footer">
-          		<h4 className= "App-footer-text"> Site Developed by @Eman Zaghloul and integrated with Fousquare API to get data</h4>
+			<footer className="App-footer" >
+          		<h2 className= "App-footer-text" tabIndex={0}>
+          		 Site Developed by @Eman Zaghloul and integrated with Foursquare API to get data
+          		 <a href="https://developer.foursquare.com/" role="link" tabIndex={0} 
+          		 	aria-label="Link to four square API developer site"> visit</a> 
+          		</h2>
       		</footer>
 			)
 	}

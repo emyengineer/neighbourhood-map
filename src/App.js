@@ -20,7 +20,8 @@ class App extends Component {
     defaultMarkerIcon :{},
     zoom : 17,
     defaultZoom : 15,
-    selectedColorBlack: true
+    selectedColorBlack: true,
+    menuHidden: true
   }
   componentWillMount() {
     let icon = {
@@ -128,25 +129,33 @@ class App extends Component {
   let placesNavMenu = document.querySelector("#places-list")
   placesNavMenu.classList.toggle('open')
   event.stopPropagation();
+  this.setState({
+    menuHidden: !this.state.menuHidden
+  })
  }
  changeLocationColor = () => {
   this.setState({selectedColorBlack: !this.state.selectedColorBlack})
  } 
   render() {
     let color = this.state.selectedColorBlack ? "locations-list": "selectedcolor"
+    let viewIndex =0
+    if(this.state.menuHidden) {
+      viewIndex = -1
+    }
     return (
-      <div className="main">
+      <div className="main" role="main">
       <Header onMenuClick = {this.handleNavMenuToggle}/>
       <div id="main-container">   
-         <div id="places-list" className="nav">
+         <div id="places-list" className="nav" >
           <SearchPlaces locations= {this.state.locations} 
             onUserDidSearch= {this.updateLocations}
             onhandleLocationSelected = {this.handleLocationSelected}
             onItemClick = {this.handleLocationItemClick}
             color = {color}
+            menuHidden = {this.state.menuHidden}
           />
         </div>
-        <div id="map-container">
+        <div id="map-container" role="application" aria-labelledby="rg-label" tabIndex="0">
          { (navigator.onLine) && (<Map  locations= {this.state.locations} 
                 newCenter = {this.state.newCenter}
                 onMarkerClick = {this.handleMarkerClicked}
@@ -159,7 +168,7 @@ class App extends Component {
           { (!navigator.onLine) && 
             (<div>
               <h2>Map is offline</h2>
-              <p>You are still can access cached visited pages </p>
+              
             </div>)
 
           }

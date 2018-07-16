@@ -9,7 +9,11 @@
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
-
+.hide-label {
+    width: 0px;
+    font-size: 1px;
+    position: absolute;
+}
 .App-header {
   background-color: #222;
   /*height: 100px;*/

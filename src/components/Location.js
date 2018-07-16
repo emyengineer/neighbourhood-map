@@ -27,10 +27,14 @@ class Location extends Component {
 		console.log('Location.js location >> ', location )
 	}
 	render() {
-		const{index, location, onClick, onKeyPress} = this.props
+		const{index, location, onClick, onKeyPress, tabIndex, menuHidden, viewIndex, role} = this.props
 
 		return (
-			<li tabIndex= {0} onClick={(event) => this.onItemClick(event, location, {index})}
+			<li tabIndex= {viewIndex} 
+				arial-label={`location anchor to ${location.name}`}
+				aria-hidden = {menuHidden}
+				role = {role}
+				onClick={(event) => this.onItemClick(event, location, {index})}
 				onKeyPress={(event) => this.handleKeyPress(event, location, {index})}>
 				{location.name}
 			</li>
