@@ -15,7 +15,7 @@ class InfoWindowContent extends Component {
 		let img
 		let constructString
 		MapsDataAPI.getVenueDetails(this.props.venueId).then(data => {
-		console.log('Venue Details ', data)
+		//console.log('Venue Details ', data)
 		if(data !== undefined && data !== null) {
 		const bestPhoto =  data.bestPhoto
 		if(bestPhoto !== undefined && bestPhoto !== null) {
