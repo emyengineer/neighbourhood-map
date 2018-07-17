@@ -37,6 +37,13 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfB8UMdS7E9dAIHPW3HzKTkkjsMHg2i0I"></script> -->
+    <script type="text/javascript">
+      function gm_authFailure() { 
+        alert(`Google Maps Authentication Failed! Map Will not load correctly
+              Please Check your API License Key`);
+      // here define authentication failed message     
+     };
+    </script>
+   <!--  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfB8UMdS7E9dAIHPW3HzKTkkjsMHg2i0I"></script> -->
   </body>
 </html>
