@@ -51,6 +51,10 @@ cd inside the folder on the terminal and type >>: `yarn start`
 * _**cd**_ to your current project directory 
     run `npm install` and then `yarn start ` and here you go :)
 [neighbourhood-map](https://emyengineer.github.io/neighbourhood-map/)
+ **Offline use** mode works only in production build
+  We can run it in production by using the following commands
+  ```npm run serve```
+  And then visit localhost:50
 # Contributing
 This code is developed and used search for help on some
 * [REACT Course](https://courses.totalreact.com/p/advanced-react-free) 
