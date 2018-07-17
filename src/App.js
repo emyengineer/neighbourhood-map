@@ -38,7 +38,7 @@ class App extends Component {
 
     function handleErrors(response) {
     if (!response.ok) {
-      console.log('response status Text',  response)
+      //console.log('response status Text',  response)
         throw Error(response.statusText);
     }
     return response;
@@ -111,14 +111,15 @@ class App extends Component {
         strokeColor: 'gold',
         strokeWeight: 3
     };
+    //console.log('Marker clicked ', latlng, indx, this.state.isOpen)
     this.setState({
-      isOpen : !this.state.isOpen,
+      //isOpen : !this.state.isOpen,
       showInfoIndex: indx.index,
       newCenter : latlng,
       markerIcon: goldStar,
       zoom: 17
     })
-    this.changeLocationColor()
+    //this.changeLocationColor()
   }
 
   resetCenter = () => {
@@ -128,11 +129,12 @@ class App extends Component {
       })
   }
 
-  handleToggleOpen = (event, latlng) => {
+  handleToggleOpen = (event, latlng, indx) => {
     this.setState({
-      isOpen: !this.state.isOpen,
+      //isOpen: !this.state.isOpen,
       markerIcon: this.state.defaultMarkerIcon,
-      zoom: this.state.defaultZoom
+      zoom: this.state.defaultZoom,
+      showInfoIndex: -1
     })
     this.resetCenter();
   }

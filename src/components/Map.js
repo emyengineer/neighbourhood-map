@@ -18,8 +18,8 @@ class Map extends Component {
         let onLocationClicked = (event,  markerlocation, indx) => {
             onMarkerClick(event, markerlocation, indx)
         }
-        let handleOnToggleOpen = (event, latlng) => {
-            onToggleOpen(event, latlng)
+        let handleOnToggleOpen = (event, latlng, index) => {
+            onToggleOpen(event, latlng, index)
         }
 		let locationsHasValue = false
 		let markers = []

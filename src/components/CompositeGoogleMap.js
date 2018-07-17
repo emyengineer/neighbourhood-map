@@ -74,15 +74,16 @@ const CompositeGoogleMap = compose(
                 onClick = {(event) => {
                 props.onMarkerClicked(event, {lat: marker.lat, lng: marker.lng}, {index})}}
                 animation = {props.showInfoIndex === index? google.maps.Animation.BOUNCE : google.maps.Animation.DROP } //CUSTOM_FADE BOUNCE
-        > 
-			{(props.showInfoIndex === index) && 
+        > {(props.showInfoIndex === index) && 
                 <InfoWindow  onCloseClick = {(event) => {
-                    props.onToggleOpen(event, {lat: marker.lat, lng: marker.lng})}}>
+                    props.onToggleOpen(event, {lat: marker.lat, lng: marker.lng}, {index})}}>
 				   <InfoWindowContent title = {marker.title} 
                     latlng = {{lat: marker.lat, lng: marker.lng}}
                     venueId = {marker.venueId}
                     />
 			    </InfoWindow>}
+            }
+        }
 		</Marker>
 	))}
     </GoogleMap> 
